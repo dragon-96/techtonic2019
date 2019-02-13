@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "All Quizzes" %}{% endblock %}
+
+{% block content %}
+<style media="screen">
+#i1{
+    padding-top: 100px;
+  }
+  .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+      padding: 20px;
+    }
+    .table-bordered {
+    border: 3px solid black;
+}
+body{
+  font-size: 18px;
+}
+
+</style>
+<div class="container" id="i1">
+
+
+
+
+
+<i class="fa fa-quora" style="font-size:36px" style="display:inline;"><h2 style="padding-bottom:50px;">{% trans "List of quizzes" %}</h2></i>
+    {% if quiz_list %}
+		<table  class="table table-bordered table-striped" >
+
+		  <thead>
+			<tr>
+			  <th>{% trans "Title" %}</th>
+			  <th>{% trans "Category" %}</th>
+			  <th>{% trans "Exam" %}</th>
+			  <th>{% trans "Single attempt" %}</th>
+			  <th></th>
+			</tr>
+		  </thead>
+
+		  <tbody>
+
+        {% for quiz in quiz_list %}
+
+  			<tr>
+			  <td>{{ quiz.title }}</td>
+			  <td>{{ quiz.category }}</td>
+			  <td>{{ quiz.exam_paper }}</td>
+			  <td>{{ quiz.single_attempt }}</td>
+			  <td>
+				<a href="{% url 'quiz_start_page' slug=quiz.url %}" class="btn btn-primary btn-lg">
+				  {% trans "View Details" %}
+				</a>
+			</tr>
+
+        {% endfor %}
+		  </tbody>
+
+		</table>
+    </div>
+
+	{% else %}
+        <p>{% trans "There are no available quizzes" %}.</p>
+    {% endif %}
+{% endblock %}
